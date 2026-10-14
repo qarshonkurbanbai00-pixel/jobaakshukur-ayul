@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}3D реконструкция — АҚШҰҚЫР{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">3D РЕКОНСТРУКЦИЯ</p>
+  <h1 class="page-hero__title reveal">Тарихи атмосфера</h1>
+  <p class="page-hero__lead reveal">Мешіт, ескі ағаш, Каспий теңізі, жағалау, құдық, түйе — тарихи деректерге сүйеніп жасалған болжамды көрініс.</p>
+</section>
+
+<section class="section section--3d">
+  <div class="scene-wrap reveal">
+    <canvas id="scene3d" aria-label="Ақшұқыр тарихи атмосферасының 3D реконструкциясы"></canvas>
+    <div class="scene-loader" id="sceneLoader" aria-live="polite">
+      <div class="scene-loader__spinner" aria-hidden="true"></div>
+      <p>3D сахна жүктелуде…</p>
+    </div>
+    <div class="scene-overlay">
+      <p class="scene-overlay__title">3D РЕКОНСТРУКЦИЯ</p>
+      <p class="scene-overlay__note">Тарихи деректерге сүйеніп жасалған болжамды көрініс.<br>Бұл нақты сақталған ғимараттың фотограмметриялық көшірмесі емес.</p>
+    </div>
+    <div class="scene-controls" role="group" aria-label="3D басқару">
+      <button class="btn btn--line" id="sceneToggle" aria-pressed="true">⏸ Авто-айналу</button>
+      <button class="btn btn--line" id="sceneReset">⟲ Камераны қайтару</button>
+      <button class="btn btn--line" id="sceneFs">⛶ Толық экран</button>
+    </div>
+    <div class="scene-hint">🖱 Айналдыру · 🖲 Жақындату · ⌨ Басқару</div>
+  </div>
+  <div class="scene-objects reveal">
+    <h2 class="detail-block__title">Сахна нысандары</h2>
+    <ul class="object-list">
+      <li><span>🕌</span><strong>Мешіт</strong> — күмбез және минарет. <em>Болжамды реконструкция</em></li>
+      <li><span>🌳</span><strong>Ескі ағаш</strong> — Машырық қажы дәстүріндегі бақ символы. <em>Ауызша дерек</em></li>
+      <li><span>💧</span><strong>Құдық</strong> — ауылдық өмір элементі. <em>Ауызша дерек</em></li>
+      <li><span>🐪</span><strong>Түйе</strong> — Маңғыстау даласының қожайыны. <em>Этнографиялық элемент</em></li>
+      <li><span>🌊</span><strong>Каспий</strong> — жағалау сызығы. <em>Географиялық дерек</em></li>
+    </ul>
+  </div>
+  <div class="section__more reveal">
+    <a class="btn btn--ghost" href="/map">ТАРИХИ ОРЫНДАР КАРТАСЫ <span class="btn__arrow">→</span></a>
+  </div>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='vendor/three.min.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/OrbitControls.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/reconstruction.js') }}" defer></script>
+{% endblock %}

@@ -1,0 +1,11 @@
+{
+  "sources": [
+    {"id": "wikipedia-akshukyr", "title": "«Ақшұқыр» — Қазақша Уикипедия мақаласы", "author": "Уикипедия қауымдастығы", "year": "Үнемі жаңартылатын", "type": "written", "url": "https://kk.wikipedia.org/wiki/Ақшұқыр"},
+    {"id": "wikipedia-qoshqar", "title": "«Қошқар Ата құлпытасы» — Қазақша Уикипедия", "author": "Уикипедия қауымдастығы", "year": "Үнемі жаңартылатын", "type": "archive", "url": "https://kk.wikipedia.org/wiki/Қошқар_Ата_құлпытасы"},
+    {"id": "gov-akimat", "title": "Ақшұқыр ауылы әкімдігінің ресми парақшасы", "author": "Gov.kz — Маңғыстау облысы, Түпқараған ауданы", "year": "Ағымдағы", "type": "written", "url": "https://www.gov.kz/memleket/entities/mangystau-tupkaragan-akshyqur?lang=kk"},
+    {"id": "oral-tradition", "title": "Ауыл үлкендерінің ауызша әңгімелері", "author": "Ақшұқыр ауылы тұрғындары (зерттеу барысында жинақталуда)", "year": "Жинақталу үстінде", "type": "oral", "url": null},
+    {"id": "oskinbay-works", "title": "Өскінбай ақын шығармаларындағы Ақшұқыр мен Машырық қажы жайлы жыр жолдары", "author": "Өскінбай ақын (әдеби мұра)", "year": "Нақтылауда", "type": "literary", "url": null},
+    {"id": "medrese-1887", "title": "1887 жылғы медресе туралы жазба дерек", "author": "Архив дерегі (нұсқау нақтылануда)", "year": "1887", "type": "written", "url": null},
+    {"id": "research-notes", "title": "Жоба авторының зерттеу жазықтары мен далалық белгілері", "author": "Жоба авторы — 9-сынып оқушысы", "year": "2026", "type": "research", "url": null}
+  ]
+}

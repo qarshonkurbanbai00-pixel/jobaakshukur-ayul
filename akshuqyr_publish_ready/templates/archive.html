@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge %}
+{% block title %}Цифрлық архив — АҚШҰҚЫР{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">ЦИФРЛЫҚ АРХИВ</p>
+  <h1 class="page-hero__title reveal">Құжаттар · Фото · Карталар</h1>
+  <p class="page-hero__lead reveal">Іздеу, санат бойынша сүзу, modal viewer. Карточканы басыңыз немесе Enter пернесін қолданыңыз.</p>
+</section>
+
+<section class="section">
+  <div class="archive-search reveal">
+    <input type="search" id="archiveSearch" placeholder="Кілтсөз арқылы іздеу…" aria-label="Архивтен іздеу">
+  </div>
+  <div class="archive-filter reveal" role="group" aria-label="Архив санаттары">
+    <button class="chip is-active" data-filter="all">Барлығы</button>
+    {% for c in categories %}
+    <button class="chip" data-filter="{{ c.id }}">{{ c.name }}</button>
+    {% endfor %}
+  </div>
+
+  <div class="archive-grid" id="archiveGrid">
+    {% for c in categories %}
+      {% for item in c['items'] %}
+      <article class="archive-card card reveal" data-cat="{{ c.id }}"
+               data-title="{{ item.title }}" data-year="{{ item.year }}"
+               data-type="{{ item.type }}" data-note="{{ item.note }}"
+               data-file="{{ item.file or '' }}" tabindex="0" role="button"
+               aria-label="{{ item.title }} — ашу">
+        <p class="archive-card__cat">{{ c.name }}</p>
+        <h2 class="archive-card__title">{{ item.title }}</h2>
+        <p class="archive-card__year">{{ item.year }}</p>
+        {{ badge(item.type) }}
+      </article>
+      {% endfor %}
+    {% endfor %}
+  </div>
+  <p class="muted archive-empty" id="archiveEmpty" hidden>Іздеу бойынша нәтиже табылмады.</p>
+</section>
+
+<div class="modal" id="archiveModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel card">
+    <button class="modal__close" data-close aria-label="Жабу">✕</button>
+    <h2 class="modal__title" id="modalTitle"></h2>
+    <p class="modal__year" id="modalYear"></p>
+    <div id="modalBadge"></div>
+    <p class="modal__note" id="modalNote"></p>
+    <div class="modal__file" id="modalFile"></div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/archive.js') }}" defer></script>
+{% endblock %}

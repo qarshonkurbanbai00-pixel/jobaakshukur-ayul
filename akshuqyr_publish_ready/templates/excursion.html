@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge %}
+{% block title %}Виртуалды экскурсия — АҚШҰҚЫР{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='vendor/leaflet.css') }}">
+{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">ВИРТУАЛДЫ ЭКСКУРСИЯ</p>
+  <h1 class="page-hero__title reveal">Ақшұқыр тарихымен саяхат</h1>
+  <p class="page-hero__lead reveal">Бес нүкте арқылы — Қошқар атадан бүгінгі Ақшұқырға дейінгі қысқа жол.</p>
+</section>
+
+<section class="section section--excursion">
+  <div class="excursion-grid">
+    <aside class="excursion-list reveal">
+      {% for s in stops %}
+      <button class="excursion-stop" data-stop="{{ loop.index0 }}" data-place="{{ s.place_id }}">
+        <span class="excursion-stop__num">{{ s.num }}</span>
+        <span class="excursion-stop__body">
+          <span class="excursion-stop__title">{{ s.title }}</span>
+          <span class="excursion-stop__text">{{ s.text }}</span>
+          {{ badge(s.badge) }}
+        </span>
+      </button>
+      {% endfor %}
+    </aside>
+    <div class="excursion-map reveal">
+      <div id="excursionMap" class="map" role="application" aria-label="Экскурсия картасы"></div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='vendor/leaflet.js') }}" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (typeof L === 'undefined') return;
+  L.Icon.Default.imagePath = "{{ url_for('static', filename='vendor/') }}";
+  var map = L.map('excursionMap', { scrollWheelZoom: false, zoomControl: true })
+             .setView([43.7814, 51.0607], 11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors', maxZoom: 18
+  }).addTo(map);
+  fetch('/api/places').then(function (r) { return r.json(); }).then(function (data) {
+    var byId = {};
+    data.places.forEach(function (p) {
+      byId[p.id] = p;
+      if (p.coords) L.marker(p.coords).addTo(map).bindPopup('<strong>' + p.name + '</strong><br>' + p.summary);
+    });
+    document.querySelectorAll('.excursion-stop').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.excursion-stop').forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        var p = byId[btn.dataset.place];
+        if (p && p.coords) map.flyTo(p.coords, 13, { duration: 1.2 });
+      });
+    });
+  });
+});
+</script>
+{% endblock %}

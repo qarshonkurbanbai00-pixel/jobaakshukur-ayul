@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge %}
+{% block title %}Ауызша тарих — АҚШҰҚЫР{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">АУЫЗША ТАРИХ</p>
+  <h1 class="page-hero__title reveal">Үлкендердің естелігі мен аңыздары</h1>
+  <p class="page-hero__lead reveal">Сұхбаттар және ауызша дәстүр. Аңыздар тарихи фактілерден «АҢЫЗ» белгісімен ажыратылады.</p>
+</section>
+
+<section class="section">
+  <h2 class="section__title reveal" style="font-size:28px;">Сұхбаттар</h2>
+  <div class="interviews-grid">
+    {% for i in interviews %}
+    <article class="card interview-card reveal">
+      <p class="interview-card__person">{{ i.person }}</p>
+      <h3 class="interview-card__topic">{{ i.topic }}</h3>
+      <p class="interview-card__year">Жыл: {{ i.year }}</p>
+      <p class="interview-card__excerpt">«{{ i.excerpt }}»</p>
+      {% if i.media %}
+        {% if i.media_type == 'audio' %}<audio controls src="{{ i.media }}"></audio>
+        {% elif i.media_type == 'video' %}<video controls src="{{ i.media }}"></video>{% endif %}
+      {% else %}<p class="muted">Аудио/видео материал кейін енгізіледі.</p>{% endif %}
+      {{ badge('needed' if i.placeholder else 'oral') }}
+    </article>
+    {% endfor %}
+  </div>
+
+  <h2 class="section__title reveal" style="font-size:28px;margin-top:60px;">Аңыздар мен әңгімелер</h2>
+  <div class="interviews-grid">
+    {% for l in legends %}
+    <article class="card interview-card reveal">
+      <p class="interview-card__person">Әңгімелеуші: {{ l.teller }}</p>
+      <h3 class="interview-card__topic">{{ l.title }}</h3>
+      <p class="interview-card__year">Жазылған: {{ l.recorded }}</p>
+      <p class="interview-card__excerpt">«{{ l.text }}»</p>
+      {{ badge('needed' if l.placeholder else 'legend') }}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

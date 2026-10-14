@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge %}
+{% block title %}Дереккөздер — АҚШҰҚЫР{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">ДЕРЕККӨЗДЕР</p>
+  <h1 class="page-hero__title reveal">Жоба негізделген деректер</h1>
+  <p class="page-hero__lead reveal">Әр мәлімет дерек деңгейімен бірге көрсетіледі — тексерімді ғылыми ұстаным.</p>
+</section>
+
+<section class="section">
+  <div class="sources-grid">
+    {% for s in sources %}
+    <article class="card source-card reveal">
+      <h2 class="source-card__title">{{ s.title }}</h2>
+      <p class="source-card__author">{{ s.author }}</p>
+      <p class="source-card__year">Жылы: {{ s.year }}</p>
+      {{ badge(s.type) }}
+      {% if s.url %}<a class="btn btn--line" href="{{ s.url }}" target="_blank" rel="noopener">СІЛТЕМЕНІ АШУ <span class="btn__arrow">→</span></a>
+      {% else %}<p class="muted">Сілтеме жоқ — ішкі архив материалы.</p>{% endif %}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

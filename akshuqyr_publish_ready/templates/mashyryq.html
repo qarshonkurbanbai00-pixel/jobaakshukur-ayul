@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge, portrait %}
+{% block title %}Машырық қажы — АҚШҰҚЫР{% endblock %}
+{% block content %}
+<section class="page-hero page-hero--person">
+  <div class="person-hero reveal">
+    {{ portrait(person) }}
+    <div>
+      <p class="section__kicker">АРНАЙЫ БӨЛІМ</p>
+      <h1 class="page-hero__title">МАШЫРЫҚ ҚАЖЫ</h1>
+      <p class="page-hero__lead">Ақшұқыр рухани тарихындағы орталық тұлға</p>
+      {{ badge('oral') }}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="mashyryq-grid">
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Мешіт</h2>
+      <p>Ауызша деректер бойынша Машырық қажы ауылда мешіт салдырған. Мешіт орны мен сәулет ерекшелігі туралы нақты деректер жинақталуда.</p>
+      {{ badge('oral') }}
+    </article>
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Медресе</h2>
+      <p>1887 жылғы жазба деректе Ақшұқырдағы медресе туралы мәлімет бар. Бұл медресенің Машырық қажы дәстүрімен байланысы зерттеу нұсқауы ретінде қарастырылады.</p>
+      {{ badge('written') }}
+    </article>
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Құдық</h2>
+      <p>Ауызша әңгімелерде Машырық қажы құдық қаздырғаны айтылады. Құдықтың нақты орны «Тарихи орындар» картасында нақтыланатын нүкте.</p>
+      {{ badge('oral') }}
+    </article>
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Бақ</h2>
+      <p>Бақ отырғызу дәстүрі де ауызша деректерде тұлғаның есімімен байланыстырылады.</p>
+      {{ badge('oral') }}
+    </article>
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Балаларға білім беру дәстүрі</h2>
+      <p>Медресе арқылы сауат ашу дәстүрі қалыптасқаны ауызша деректермен және Өскінбай ақын шығармаларындағы жыр жолдарымен расталады.</p>
+      {{ badge('oral') }} {{ badge('literary') }}
+    </article>
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Тарихи деректер жайлы</h2>
+      <p>Тұлғаның нақты өмір жылдары жазба деректермен әзірге дәлелденбеген. Бұл бөлім деректер толыққан сайын жаңартылып отырады.</p>
+      {{ badge('needed') }}
+    </article>
+  </div>
+  <div class="photo-strip reveal">
+    <figure class="photo-strip__item">
+      <img src="{{ url_for('static', filename='images/WhatsApp Image 2026-10-12 at 16.19.43.jpeg') }}" alt="Машырық қажыға қатысты архивтік фотосурет" loading="lazy">
+      <figcaption>Архивтік фотосурет</figcaption>
+    </figure>
+    <figure class="photo-strip__item">
+      <img src="{{ url_for('static', filename='images/WhatsApp Image 2026-10-12 at 16.19.43 (1).jpeg') }}" alt="Машырық қажының тарихи портреттік кадры" loading="lazy">
+      <figcaption>Тарихи портреттік кадр</figcaption>
+    </figure>
+  </div>
+  <div class="section__more reveal">
+    <a class="btn btn--ghost" href="/people/mashyryq-qajy">ТҰЛҒА БЕТІ <span class="btn__arrow">→</span></a>
+    <a class="btn btn--ghost" href="/reconstruction">3D РЕКОНСТРУКЦИЯ <span class="btn__arrow">→</span></a>
+  </div>
+</section>
+{% endblock %}

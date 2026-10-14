@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge %}
+{% block title %}Уақыт машинасы — Ақшұқыр тарихымен саяхат{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">УАҚЫТ МАШИНАСЫ</p>
+  <h1 class="page-hero__title reveal">Уақыт машинасы — Ақшұқыр тарихымен саяхат</h1>
+  <p class="page-hero__lead reveal">{{ intro }}</p>
+</section>
+
+<section class="section time-machine-section">
+  <div class="time-machine reveal">
+    <aside class="time-machine__rail" aria-label="Тарихи кезеңдер">
+      {% for item in timeline %}
+      <button class="time-machine__step {% if loop.first %}is-active{% endif %}" type="button" data-step="{{ item.id }}" aria-controls="time-machine-panel-{{ item.id }}">
+        <span class="time-machine__period">{{ item.period }}</span>
+        <strong>{{ item.title }}</strong>
+      </button>
+      {% endfor %}
+    </aside>
+
+    <div class="time-machine__panel card" id="timeMachinePanel">
+      {% for item in timeline %}
+      <article class="time-machine__content {% if loop.first %}is-visible{% endif %}" id="time-machine-panel-{{ item.id }}" data-step="{{ item.id }}">
+        <div class="time-machine__header">
+          <p class="time-machine__eyebrow">{{ item.period }}</p>
+          <h2>{{ item.title }}</h2>
+        </div>
+
+        <p class="time-machine__summary">{{ item.summary }}</p>
+        <p class="time-machine__description">{{ item.description }}</p>
+        {{ badge(item.badge) }}
+
+        <div class="time-machine__records">
+          <h3>Мәліметтер</h3>
+          <ul>
+            {% for record in item.records %}
+            <li>
+              <span>{{ record.type }}</span>
+              <strong>{{ record.title }}</strong>
+              <p>{{ record.detail }}</p>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="time-machine__gallery">
+          <h3>Фотосуреттер</h3>
+          <div class="time-machine__photo-grid">
+            {% for photo in item.media %}
+            <button class="time-machine__photo" type="button" data-image="{{ photo.src }}" data-title="{{ photo.title }}" aria-label="{{ photo.title }} фотосуретін толық көрсету">
+              <img src="{{ photo.src }}" alt="{{ photo.title }}" loading="lazy">
+              <span>{{ photo.title }}</span>
+            </button>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="time-machine__sources">
+          <h3>Дереккөздер</h3>
+          <ul>
+            {% for source in item.sources %}
+            <li>
+              <strong>{{ source.label }}</strong>
+              <p>{{ source.detail }}</p>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="timeMachineLightbox" aria-hidden="true" role="dialog" aria-modal="true">
+  <button class="lightbox__close" id="tmLightboxClose" aria-label="Жабу">✕</button>
+  <div class="lightbox__content">
+    <img id="tmLightboxImage" src="" alt="">
+    <p class="lightbox__caption" id="tmLightboxCaption"></p>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/time-machine.js') }}" defer></script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge, portrait %}
+{% block title %}Тұлғалар — АҚШҰҚЫР{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">ТҰЛҒАЛАР</p>
+  <h1 class="page-hero__title reveal">Тарихи тұлғалар</h1>
+  <p class="page-hero__lead reveal">Нақты портрет жоқ тұлғалар үшін сілуэт қоланылады — ешбір сурет тарихи портрет ретінде ұсынылмайды.</p>
+</section>
+
+<section class="section">
+  <div class="people-grid people-grid--wide">
+    {% for p in people %}
+    <article class="person-card reveal">
+      {{ portrait(p) }}
+      <div class="person-card__body">
+        <h2 class="person-card__name">{{ p.name }}</h2>
+        <p class="person-card__role">{{ p.role }}</p>
+        <p class="person-card__short">{{ p.short }}</p>
+        {{ badge(p.badge) }}
+        {% if not p.placeholder %}
+        <a class="btn btn--line" href="/people/{{ p.id }}">ТОЛЫҒЫРАҚ <span class="btn__arrow">→</span></a>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

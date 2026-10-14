@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge, photo_tile %}
+{% block title %}Мұражай қазынасы — АҚШҰҚЫР{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">МҰРАЖАЙ ҚАЗЫНАСЫ</p>
+  <h1 class="page-hero__title reveal">Жәдігерлер</h1>
+  <p class="page-hero__lead reveal">Әр жәдігерге жеке карточка: атауы, фото, сипаттама, кезеңі, материалы және дереккөз. Нақты жәдігер енгізілгенше — placeholder белгісі.</p>
+</section>
+
+<section class="section">
+  <div class="archive-grid" id="treasuresGrid">
+    {% for t in treasures %}
+    <article class="archive-card card reveal" tabindex="0" role="button"
+             data-title="{{ t.name }}" data-period="{{ t.period }}" data-material="{{ t.material }}"
+             data-origin="{{ t.origin }}" data-desc="{{ t.desc }}" data-photo="{{ t.photo or '' }}"
+             aria-label="{{ t.name }} — ашу">
+      <div class="treasure-photo">{{ photo_tile(t.photo, t.name) }}</div>
+      <p class="archive-card__cat">{{ t.period }}</p>
+      <h2 class="archive-card__title">{{ t.name }}</h2>
+      <p class="archive-card__year">{{ t.material }}</p>
+      {{ badge('needed' if t.placeholder else 'archive') }}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<div class="modal" id="treasureModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="tmTitle">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel card">
+    <button class="modal__close" data-close aria-label="Жабу">✕</button>
+    <h2 class="modal__title" id="tmTitle"></h2>
+    <p class="muted" id="tmPeriod"></p>
+    <div id="tmPhoto" class="modal__photo"></div>
+    <p id="tmDesc"></p>
+    <p class="muted"><strong>Материалы:</strong> <span id="tmMaterial"></span></p>
+    <p class="muted"><strong>Шығу тегі:</strong> <span id="tmOrigin"></span></p>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+(function(){
+  var modal=document.getElementById('treasureModal');
+  function open(c){
+    document.getElementById('tmTitle').textContent=c.dataset.title;
+    document.getElementById('tmPeriod').textContent=c.dataset.period;
+    document.getElementById('tmDesc').textContent=c.dataset.desc;
+    document.getElementById('tmMaterial').textContent=c.dataset.material;
+    document.getElementById('tmOrigin').textContent=c.dataset.origin;
+    var p=document.getElementById('tmPhoto');
+    p.innerHTML=c.dataset.photo?('<img src="'+c.dataset.photo+'" alt="'+c.dataset.title+'" style="width:100%;border-radius:12px">'):'<p class="muted">Нақты фото әзірге жоқ.</p>';
+    modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');
+    modal.querySelector('.modal__close').focus();
+  }
+  function close(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');}
+  document.querySelectorAll('.archive-card').forEach(function(c){
+    c.addEventListener('click',function(){open(c);});
+    c.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(c);}});
+  });
+  modal.querySelectorAll('[data-close]').forEach(function(e){e.addEventListener('click',close);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
+</script>
+{% endblock %}

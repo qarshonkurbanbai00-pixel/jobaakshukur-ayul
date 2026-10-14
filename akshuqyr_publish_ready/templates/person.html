@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge, portrait %}
+{% block title %}{{ person.name }} — АҚШҰҚЫР{% endblock %}
+{% block content %}
+<section class="page-hero page-hero--person">
+  <div class="person-hero reveal">
+    {{ portrait(person) }}
+    <div>
+      <p class="section__kicker">ТҰЛҒА</p>
+      <h1 class="page-hero__title">{{ person.name }}</h1>
+      <p class="page-hero__lead">{{ person.role }}</p>
+      {{ badge(person.badge) }}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="detail-grid">
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Қысқаша өмірбаян</h2>
+      <p>{{ person.bio }}</p>
+    </article>
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Ақшұқырмен байланысы</h2>
+      <p>{{ person.connection }}</p>
+    </article>
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Тарихи/мәдени үлесі</h2>
+      <p>{{ person.contribution }}</p>
+    </article>
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Қатысты орындар</h2>
+      {% if person.places %}
+      <ul class="link-list">
+        {% for pid in person.places %}
+          {% set pl = places | selectattr('id', 'equalto', pid) | first %}
+          {% if pl %}<li><a href="/places/{{ pl.id }}">{{ pl.name }}</a></li>{% endif %}
+        {% endfor %}
+      </ul>
+      {% else %}<p class="muted">Нақтылануда.</p>{% endif %}
+    </article>
+    <article class="card detail-block detail-block--wide reveal">
+      <h2 class="detail-block__title">Дереккөздер</h2>
+      <ul class="link-list">
+        {% for sid in person.sources %}
+          {% set s = sources | selectattr('id', 'equalto', sid) | first %}
+          {% if s %}
+          <li>
+            {% if s.url %}<a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.title }}</a>
+            {% else %}{{ s.title }}{% endif %}
+            {{ badge(s.type) }}
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </article>
+  </div>
+  <div class="section__more reveal">
+    <a class="btn btn--ghost" href="/people">← БАРЛЫҚ ТҰЛҒАЛАР</a>
+  </div>
+</section>
+{% endblock %}

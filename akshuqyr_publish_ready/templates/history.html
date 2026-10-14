@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge %}
+{% block title %}Тарих — АҚШҰҚЫР{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">ТАРИХ</p>
+  <h1 class="page-hero__title reveal">Ақшұқыр шежіресі</h1>
+  <p class="page-hero__lead reveal">Әр кезең дерек деңгейімен белгіленген. Дәлелденбеген жылдар нақты факт ретінде көрсетілмейді.</p>
+</section>
+
+<section class="section">
+  <div class="timeline" id="timeline">
+    <div class="timeline__line" aria-hidden="true"><span class="timeline__progress" id="timelineProgress"></span></div>
+    {% for item in timeline %}
+    <article class="timeline__item reveal" id="tl-{{ item.id }}">
+      <div class="timeline__dot" aria-hidden="true"></div>
+      <div class="timeline__card card">
+        <p class="timeline__period">{{ item.period }}</p>
+        <h2 class="timeline__title">{{ item.title }}</h2>
+        <p class="timeline__desc">{{ item.desc }}</p>
+        {{ badge(item.badge) }}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/timeline.js') }}" defer></script>
+{% endblock %}

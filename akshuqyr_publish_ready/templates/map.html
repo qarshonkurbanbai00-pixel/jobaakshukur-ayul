@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Тарихи орындар — АҚШҰҚЫР{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='vendor/leaflet.css') }}">
+{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">ТАРИХИ ОРЫНДАР</p>
+  <h1 class="page-hero__title reveal">Интерактивті карта</h1>
+  <p class="page-hero__lead reveal">Нақты координатасы жоқ нүктелер картада көрсетілмейді — олар төмендегі тізімде «нақтылануда» белгісімен беріледі.</p>
+</section>
+
+<section class="section section--map">
+  <div class="archive-filter reveal" id="mapFilters" role="group" aria-label="Санат бойынша сүзу">
+    <button class="chip is-active" data-cat="all">Барлығы</button>
+    <button class="chip" data-cat="qorym">Қорымдар мен кесенелер</button>
+    <button class="chip" data-cat="history">Тарихи орындар</button>
+    <button class="chip" data-cat="culture">Мәдени нысандар</button>
+    <button class="chip" data-cat="education">Мектеп пен білім</button>
+  </div>
+  <div class="map-layout">
+    <div class="map-wrap reveal">
+      <div id="map" class="map" role="application" aria-label="Ақшұқыр тарихи орындарының картасы"></div>
+    </div>
+    <aside class="map-list" id="mapList" aria-label="Нүктелер тізімі">
+      <p class="map-list__loading">Деректер жүктелуде…</p>
+    </aside>
+  </div>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='vendor/leaflet.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/map.js') }}" defer></script>
+{% endblock %}

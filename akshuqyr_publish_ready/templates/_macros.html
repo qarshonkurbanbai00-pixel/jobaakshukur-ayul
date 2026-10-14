@@ -1,0 +1,40 @@
+{% macro badge(type) -%}
+{%- set labels = {
+  'written': 'ЖАЗБА ДЕРЕК',
+  'archive': 'АРХИВ ДЕРЕГІ',
+  'literary': 'ӘДЕБИ ДЕРЕК',
+  'oral': 'АУЫЗША ДЕРЕК',
+  'research': 'ЗЕРТТЕУ МАТЕРИАЛЫ',
+  'needed': 'ДЕРЕК ҚАЖЕТ',
+  'legend': 'АҢЫЗ'
+} -%}
+<span class="badge badge-{{ type }}">{{ labels.get(type, 'ДЕРЕК ҚАЖЕТ') }}</span>
+{%- endmacro %}
+
+{% macro portrait(person) -%}
+<div class="portrait" aria-hidden="true">
+  <svg viewBox="0 0 200 240" role="img" aria-label="Портрет сілуэті — нақты сурет жоқ">
+    <defs>
+      <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#1a2436"/>
+        <stop offset="1" stop-color="#0b1220"/>
+      </linearGradient>
+    </defs>
+    <rect width="200" height="240" fill="url(#pg)"/>
+    <circle cx="100" cy="86" r="34" fill="none" stroke="#c9a35c" stroke-width="1.2" opacity=".7"/>
+    <path d="M40 200 C40 150 70 132 100 132 C130 132 160 150 160 200" fill="none" stroke="#c9a35c" stroke-width="1.2" opacity=".7"/>
+    <text x="100" y="228" text-anchor="middle" fill="#93a0b4" font-size="10" letter-spacing="2">ПОРТРЕТ ЖОҚ</text>
+  </svg>
+</div>
+{%- endmacro %}
+
+{% macro photo_tile(photo, alt) -%}
+{%- if photo -%}
+<img src="{{ photo }}" alt="{{ alt }}" loading="lazy">
+{%- else -%}
+<div class="photo-placeholder" role="img" aria-label="{{ alt }} — фото әзірге жоқ">
+  <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="10" width="52" height="44" rx="4" fill="none" stroke="#5a6578" stroke-width="2"/><circle cx="22" cy="24" r="5" fill="none" stroke="#5a6578" stroke-width="2"/><path d="M10 50 L26 34 L38 46 L46 38 L54 46" fill="none" stroke="#5a6578" stroke-width="2"/></svg>
+  <span>ФОТО ҚАЖЕТ</span>
+</div>
+{%- endif -%}
+{%- endmacro %}

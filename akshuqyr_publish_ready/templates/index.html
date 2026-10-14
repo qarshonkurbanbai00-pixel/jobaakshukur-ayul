@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge, portrait %}
+
+{% block preloader %}
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <p class="preloader__word preloader__word--1">АҚШҰҚЫР</p>
+    <p class="preloader__word preloader__word--2">ЦИФРЛЫҚ ШЕЖІРЕ</p>
+    <p class="preloader__word preloader__word--3">Машырық қажыдан бүгінгі Ақшұқырға дейін</p>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="hero" id="hero">
+  <div class="hero__bg" aria-hidden="true">
+    <div class="hero__layer hero__layer--sky"></div>
+    <div class="hero__layer hero__layer--dunes"></div>
+    <div class="hero__layer hero__layer--sea"></div>
+    <div class="hero__grain"></div>
+  </div>
+  <div class="hero__content">
+    <p class="hero__kicker reveal-hero">МАҢҒЫСТАУ · ТҮПҚАРАҒАН АУДАНЫ</p>
+    <h1 class="hero__title reveal-hero">АҚШҰҚЫР</h1>
+    <p class="hero__subtitle reveal-hero">ЦИФРЛЫҚ ШЕЖІРЕ</p>
+    <p class="hero__motto reveal-hero">«Машырық қажыдан бүгінгі Ақшұқырға дейін»</p>
+    <a class="btn btn--gold reveal-hero" href="#stats">
+      ШЕЖІРЕНІ БАСТАУ <span class="btn__arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+  <div class="hero__scroll" aria-hidden="true">
+    <span class="hero__scroll-line"></span>
+    <span class="hero__scroll-text">төмен сырғытыңыз</span>
+  </div>
+</section>
+
+<section class="section stats" id="stats" aria-label="Статистика">
+  <div class="section__head reveal">
+    <p class="section__kicker">ЦИФРЛЫҚ АЙҚЫНДАМА</p>
+    <h2 class="section__title">Тарих сандарда</h2>
+  </div>
+  <div class="stats__grid">
+    {% for s in stats %}
+    <article class="stat-card reveal">
+      <p class="stat-card__value"><span class="counter" data-target="{{ s.value }}">0</span>{{ s.suffix }}</p>
+      <p class="stat-card__label">{{ s.label }}</p>
+      {{ badge(s.badge) }}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section section--alt" aria-label="Тарихқа шолу">
+  <div class="section__head reveal">
+    <p class="section__kicker">ТАРИХ</p>
+    <h2 class="section__title">Кезеңдер жоспары</h2>
+    <p class="section__lead">Ежелгі дәуірден бүгінге дейінгі жол — дерек деңгейі көрсетілген интерактивті шежіре.</p>
+  </div>
+  <div class="preview-list">
+    {% for item in timeline_preview %}
+    <article class="preview-card reveal">
+      <p class="preview-card__period">{{ item.period }}</p>
+      <h3 class="preview-card__title">{{ item.title }}</h3>
+      <p class="preview-card__desc">{{ item.desc }}</p>
+      {{ badge(item.badge) }}
+    </article>
+    {% endfor %}
+  </div>
+  <div class="section__more reveal">
+    <a class="btn btn--ghost" href="/history">ТОЛЫҚ ШЕЖІРЕ <span class="btn__arrow">→</span></a>
+  </div>
+</section>
+
+<section class="section" aria-label="Тұлғалар">
+  <div class="section__head reveal">
+    <p class="section__kicker">ТҰЛҒАЛАР</p>
+    <h2 class="section__title">Тарихты жасаған есімдер</h2>
+  </div>
+  <div class="people-grid">
+    {% for p in people %}
+    <article class="person-card reveal">
+      {{ portrait(p) }}
+      <div class="person-card__body">
+        <h3 class="person-card__name">{{ p.name }}</h3>
+        <p class="person-card__role">{{ p.role }}</p>
+        <p class="person-card__short">{{ p.short }}</p>
+        {{ badge(p.badge) }}
+        <a class="btn btn--line" href="/people/{{ p.id }}">ТОЛЫҒЫРАҚ <span class="btn__arrow">→</span></a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  <div class="section__more reveal">
+    <a class="btn btn--ghost" href="/people">БАРЛЫҚ ТҰЛҒАЛАР <span class="btn__arrow">→</span></a>
+  </div>
+</section>
+
+<section class="section section--alt" aria-label="Платформа бөлімдері">
+  <div class="section__head reveal">
+    <p class="section__kicker">ПЛАТФОРМА</p>
+    <h2 class="section__title">Цифрлық мұра бөлімдері</h2>
+  </div>
+  <div class="preview-list">
+    <article class="preview-card reveal">
+      <p class="preview-card__period">ИНТЕРАКТИВТІ КАРТА</p>
+      <h3 class="preview-card__title">Тарихи орындар</h3>
+      <p class="preview-card__desc">Қошқар ата қорымы мен басқа нысандар — санаттар бойынша бөлінген маркерлермен.</p>
+      <a class="btn btn--line" href="/map">КАРТАҒА ӨТУ <span class="btn__arrow">→</span></a>
+    </article>
+    <article class="preview-card reveal">
+      <p class="preview-card__period">3D</p>
+      <h3 class="preview-card__title">Реконструкция</h3>
+      <p class="preview-card__desc">Мешіт, құдық, теңіз — деректерге сүйенген болжамды тарихи атмосфера.</p>
+      <a class="btn btn--line" href="/reconstruction">3D САХНА <span class="btn__arrow">→</span></a>
+    </article>
+    <article class="preview-card reveal">
+      <p class="preview-card__period">АРХИВ</p>
+      <h3 class="preview-card__title">Мұражай қазынасы</h3>
+      <p class="preview-card__desc">Жәдігерлер, фотогалерея және цифрлық архив — іздеу мен сүзгі бар.</p>
+      <a class="btn btn--line" href="/treasures">ҚАРАУ <span class="btn__arrow">→</span></a>
+    </article>
+  </div>
+</section>
+
+<section class="section" aria-label="Кеше және бүгін">
+  <div class="section__head reveal">
+    <p class="section__kicker">КЕШЕ ЖӘНЕ БҮГІН</p>
+    <h2 class="section__title">Уақыт ағымы</h2>
+    <p class="section__lead">Сырғытты жылжытып, кеше мен бүгінді салыстырыңыз. Нақты архивтік фото болмағандықтан — placeholder көрсетіледі.</p>
+  </div>
+  <div class="ba-slider reveal" id="baSlider">
+    <div class="ba-side ba-side--before">
+      <div class="ba-placeholder">
+        <p class="ba-placeholder__title">КЕШЕ</p>
+        <p class="ba-placeholder__note">Архивтік фотосурет қажет</p>
+      </div>
+    </div>
+    <div class="ba-side ba-side--after" id="baAfter">
+      <div class="ba-placeholder ba-placeholder--after">
+        <p class="ba-placeholder__title">БҮГІН</p>
+        <p class="ba-placeholder__note">Қазіргі фото осы орынға оңай қосылады (static/images/)</p>
+      </div>
+    </div>
+    <input type="range" class="ba-range" id="baRange" min="0" max="100" value="50" aria-label="Кеше және бүгін салыстыру сырғыты">
+    <div class="ba-handle" id="baHandle" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section class="section section--alt" aria-label="Зерттеу туралы">
+  <div class="section__head reveal">
+    <p class="section__kicker">ҒЫЛЫМИ ЖОБА</p>
+    <h2 class="section__title">Дерек → Зерттеу → Цифрлық шежіре</h2>
+    <p class="section__lead">Бұл сайт — 9-сынып оқушысының ғылыми-зерттеу жобасының авторлық цифрлық өнімі. Әр мәлімет дерек деңгейімен белгіленген.</p>
+  </div>
+  <div class="process reveal">
+    <span class="process__step">ДЕРЕК</span><span class="process__sep">↓</span>
+    <span class="process__step">ЗЕРТТЕУ</span><span class="process__sep">↓</span>
+    <span class="process__step">САЛЫСТЫРУ</span><span class="process__sep">↓</span>
+    <span class="process__step">КАРТА</span><span class="process__sep">↓</span>
+    <span class="process__step">3D РЕКОНСТРУКЦИЯ</span><span class="process__sep">↓</span>
+    <span class="process__step process__step--final">ЦИФРЛЫҚ ШЕЖІРЕ</span>
+  </div>
+  <div class="section__more reveal">
+    <a class="btn btn--ghost" href="/research">ЗЕРТТЕУ БӨЛІМІ <span class="btn__arrow">→</span></a>
+  </div>
+</section>
+{% endblock %}

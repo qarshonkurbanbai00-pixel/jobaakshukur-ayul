@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% from "_macros.html" import photo_tile %}
+{% block title %}Фотогалерея — АҚШҰҚЫР{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">ФОТОГАЛЕРЕЯ</p>
+  <h1 class="page-hero__title reveal">Ақшұқыр кадрлары</h1>
+  <p class="page-hero__lead reveal">Санат бойынша сүзу, lightbox ашу, алдыңғы/келесі суретке ауысу. Нақты фото жоқ орындар placeholder'мен белгіленген.</p>
+</section>
+
+<section class="section">
+  <div class="archive-filter reveal" role="group" aria-label="Санаттар">
+    <button class="chip is-active" data-filter="all">Барлығы</button>
+    {% for c in gallery.categories %}
+    <button class="chip" data-filter="{{ c.id }}">{{ c.name }}</button>
+    {% endfor %}
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid">
+    {% for c in gallery.categories %}
+      {% for item in c['items'] %}
+      <figure class="gallery-item card reveal" data-cat="{{ c.id }}"
+              data-file="{{ item.file or '' }}" data-title="{{ item.title }}"
+              data-year="{{ item.year }}" data-note="{{ item.note }}"
+              tabindex="0" role="button" aria-label="{{ item.title }} — ашу">
+        {{ photo_tile(item.file, item.title) }}
+        <figcaption>
+          <strong>{{ item.title }}</strong>
+          <span class="muted">{{ c.name }} · {{ item.year }}</span>
+        </figcaption>
+      </figure>
+      {% endfor %}
+    {% endfor %}
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+  <button class="lightbox__close" id="lbClose" aria-label="Жабу">✕</button>
+  <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="Алдыңғы">‹</button>
+  <div class="lightbox__content">
+    <div id="lbMedia"></div>
+    <p class="lightbox__caption" id="lbCaption"></p>
+  </div>
+  <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Келесі">›</button>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/gallery.js') }}" defer></script>
+{% endblock %}

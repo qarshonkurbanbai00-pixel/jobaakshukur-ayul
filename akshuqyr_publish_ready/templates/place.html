@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge, photo_tile %}
+{% block title %}{{ place.name }} — АҚШҰҚЫР{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">ТАРИХИ ОРЫН</p>
+  <h1 class="page-hero__title reveal">{{ place.name }}</h1>
+  <p class="page-hero__lead reveal">{{ place.summary }}</p>
+  <div class="reveal">{{ badge(place.badge) }}</div>
+</section>
+
+<section class="section">
+  <div class="detail-grid">
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Тарихы мен сипаттамасы</h2>
+      <p>{{ place.history }}</p>
+    </article>
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Фото</h2>
+      {{ photo_tile(place.photo, place.name) }}
+      {% if not place.photo %}<p class="muted">Нақты фото енгізілгенше placeholder көрсетіледі.</p>{% endif %}
+    </article>
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Орналасуы</h2>
+      {% if place.coords %}
+      <p>Координаталары: {{ place.coords[0] }}, {{ place.coords[1] }}</p>
+      {% endif %}
+      <p class="muted">{{ place.coords_note }}</p>
+      <a class="btn btn--line" href="/map#{{ place.id }}">КАРТАДАН КӨРУ <span class="btn__arrow">→</span></a>
+      {% if place.has_3d %}
+      <a class="btn btn--line" href="/reconstruction">3D КӨРІНІС <span class="btn__arrow">→</span></a>
+      {% endif %}
+    </article>
+    <article class="card detail-block reveal">
+      <h2 class="detail-block__title">Дереккөздер</h2>
+      <ul class="link-list">
+        {% for sid in place.sources %}
+          {% set s = sources | selectattr('id', 'equalto', sid) | first %}
+          {% if s %}
+          <li>
+            {% if s.url %}<a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.title }}</a>
+            {% else %}{{ s.title }}{% endif %}
+            {{ badge(s.type) }}
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </article>
+  </div>
+  <div class="section__more reveal">
+    <a class="btn btn--ghost" href="/map">← ТАРИХИ ОРЫНДАР</a>
+  </div>
+</section>
+{% endblock %}

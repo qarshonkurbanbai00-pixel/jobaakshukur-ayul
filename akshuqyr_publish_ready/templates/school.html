@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge %}
+{% block title %}Мектеп тарихы — АҚШҰҚЫР{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <p class="section__kicker reveal">МЕКТЕП ТАРИХЫ</p>
+  <h1 class="page-hero__title reveal">1943 жылдан бүгінге</h1>
+  <p class="page-hero__lead reveal">{{ intro }}</p>
+</section>
+
+<section class="section">
+  <div class="school-facts reveal">
+    <div class="stat-card"><p class="stat-card__value"><span class="counter" data-target="1943">0</span></p><p class="stat-card__label">Алғашқы мектеп жылы</p>{{ badge('oral') }}</div>
+    <div class="stat-card"><p class="stat-card__value"><span class="counter" data-target="6">0</span></p><p class="stat-card__label">Алғашқы оқушылар</p>{{ badge('oral') }}</div>
+    <div class="stat-card"><p class="stat-card__value"><span class="counter" data-target="1">0</span></p><p class="stat-card__label">Алғашқы мұғалім</p>{{ badge('oral') }}</div>
+  </div>
+
+  <div class="timeline" id="timeline">
+    <div class="timeline__line" aria-hidden="true"><span class="timeline__progress" id="timelineProgress"></span></div>
+    {% for item in timeline %}
+    <article class="timeline__item reveal">
+      <div class="timeline__dot" aria-hidden="true"></div>
+      <div class="timeline__card card">
+        <p class="timeline__period">{{ item.period }}</p>
+        <h2 class="timeline__title">{{ item.title }}</h2>
+        <p class="timeline__desc">{{ item.desc }}</p>
+        {{ badge(item.badge) }}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+  <div class="photo-strip reveal">
+    <figure class="photo-strip__item">
+      <img src="{{ url_for('static', filename='images/WhatsApp Image 2026-10-12 at 16.19.43 (2).jpeg') }}" alt="Мектеп тарихына қатысты архивтік сурет" loading="lazy">
+      <figcaption>Мектеп тарихының архивтік кадры</figcaption>
+    </figure>
+    <figure class="photo-strip__item">
+      <img src="{{ url_for('static', filename='images/WhatsApp Image 2026-10-12 at 16.19.43 (3).jpeg') }}" alt="Мектептегі топтық архивтік фотосурет" loading="lazy">
+      <figcaption>Топтық архивтік фотосурет</figcaption>
+    </figure>
+  </div>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/timeline.js') }}" defer></script>
+{% endblock %}
